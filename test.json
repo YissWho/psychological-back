@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "感到紧张、焦虑或心烦意乱",
+      "options": [
+        { "id": 1, "text": "完全没有", "score": 0 },
+        { "id": 2, "text": "几天", "score": 1 },
+        { "id": 3, "text": "超过一周", "score": 2 },
+        { "id": 4, "text": "几乎每天", "score": 3 }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "无法停止或控制担忧",
+      "options": [
+        { "id": 1, "text": "完全没有", "score": 0 },
+        { "id": 2, "text": "几天", "score": 1 },
+        { "id": 3, "text": "超过一周", "score": 2 },
+        { "id": 4, "text": "几乎每天", "score": 3 }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "过分担心不同的事情",
+      "options": [
+        { "id": 1, "text": "完全没有", "score": 0 },
+        { "id": 2, "text": "几天", "score": 1 },
+        { "id": 3, "text": "超过一周", "score": 2 },
+        { "id": 4, "text": "几乎每天", "score": 3 }
+      ]
+    }
+  ]
+}
