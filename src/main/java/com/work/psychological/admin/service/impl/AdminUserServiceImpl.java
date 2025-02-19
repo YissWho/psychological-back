@@ -99,7 +99,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
         // 设置默认头像（如果没有提供）
         if (!StringUtils.hasText(user.getAvatar())) {
-            user.setAvatar("/default-avatar.png");
+            user.setAvatar("/uploads/avatars/default.png");  // 使用带/api前缀的完整路径
         }
 
         userMapper.insert(user);

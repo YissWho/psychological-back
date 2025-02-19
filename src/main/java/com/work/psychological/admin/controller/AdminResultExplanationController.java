@@ -36,8 +36,13 @@ public class AdminResultExplanationController {
         return ApiResult.success(adminResultExplanationService.updateResultExplanation(updateDTO));
     }
 
-    @DeleteMapping
-    public ApiResult<Void> deleteResultExplanation(@RequestBody @Valid ResultExplanationDeleteDTO deleteDTO) {
+    @DeleteMapping("/{assessmentId}/{category}")
+    public ApiResult<Void> deleteResultExplanation(
+            @PathVariable Integer assessmentId,
+            @PathVariable String category) {
+        ResultExplanationDeleteDTO deleteDTO = new ResultExplanationDeleteDTO();
+        deleteDTO.setAssessmentId(assessmentId);
+        deleteDTO.setCategory(category);
         adminResultExplanationService.deleteResultExplanation(deleteDTO);
         return ApiResult.success(null);
     }
