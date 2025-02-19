@@ -49,7 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         user.setEmail(registerDTO.getEmail());
         user.setRole("USER");
-        user.setAvatar("/default-avatar.png");
+        user.setAvatar("/api/uploads/avatars/default.png");  // 使用带/api前缀的完整路径
 
         // 保存用户
         this.save(user);

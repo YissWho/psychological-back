@@ -39,4 +39,7 @@ public class PsychologicalRecord {
     
     @TableLogic
     private Integer isDeleted;
+
+    @TableField(exist = false)  // 标记为非数据库字段
+    private String avatar;  // 用户头像URL
 } 

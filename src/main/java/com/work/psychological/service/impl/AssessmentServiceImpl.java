@@ -121,6 +121,11 @@ public class AssessmentServiceImpl extends ServiceImpl<AssessmentMapper, Assessm
         
         List<UserAssessment> userAssessments = userAssessmentMapper.selectList(queryWrapper);
         
+        // 如果没有测评记录，直接返回空列表
+        if (userAssessments.isEmpty()) {
+            return userAssessments;
+        }
+        
         // 获取所有相关的问卷ID
         List<Integer> assessmentIds = userAssessments.stream()
                 .map(UserAssessment::getAssessmentId)

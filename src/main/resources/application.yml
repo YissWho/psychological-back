@@ -15,6 +15,20 @@ spring:
     jwt:
       secret: 8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb
       expiration: 86400000 # 24小时
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# 文件上传配置
+file:
+  upload:
+    # 头像保存路径（相对于项目根目录）
+    avatar-path: uploads/avatars
+    # 允许的文件类型
+    allowed-types: image/jpeg,image/png,image/gif
+    # 最大文件大小（单位：字节）
+    max-size: 5242880  # 5MB
 
 logging:
   level:

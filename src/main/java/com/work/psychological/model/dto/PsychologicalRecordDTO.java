@@ -32,4 +32,6 @@ public class PsychologicalRecordDTO {
     private String emotionalState;
     
     private String notes;
+
+    private String avatar;  // 头像URL
 } 
