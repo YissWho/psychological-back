@@ -12,8 +12,10 @@ import com.work.psychological.admin.dto.AssessmentQueryDTO;
 import com.work.psychological.common.exception.BusinessException;
 import com.work.psychological.mapper.AssessmentMapper;
 import com.work.psychological.mapper.UserAssessmentMapper;
+import com.work.psychological.mapper.ResultExplanationMapper;
 import com.work.psychological.model.entity.Assessment;
 import com.work.psychological.model.entity.UserAssessment;
+import com.work.psychological.model.entity.ResultExplanation;
 import com.work.psychological.model.vo.ChartDataVO;
 import com.work.psychological.model.vo.StatisticsVO;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ public class AdminAssessmentServiceImpl implements AdminAssessmentService {
 
     private final AssessmentMapper assessmentMapper;
     private final UserAssessmentMapper userAssessmentMapper;
+    private final ResultExplanationMapper resultExplanationMapper;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -112,6 +115,15 @@ public class AdminAssessmentServiceImpl implements AdminAssessmentService {
         if (assessment == null) {
             throw new BusinessException("问卷不存在");
         }
+
+        // 检查是否有评分规则
+        LambdaQueryWrapper<ResultExplanation> resultExplanationWrapper = new LambdaQueryWrapper<>();
+        resultExplanationWrapper.eq(ResultExplanation::getAssessmentId, id);
+        long resultExplanationCount = resultExplanationMapper.selectCount(resultExplanationWrapper);
+        if (resultExplanationCount > 0) {
+            throw new BusinessException("该问卷存在评分规则，请先删除评分规则");
+        }
+
         // 检查是否有用户已完成该问卷
         LambdaQueryWrapper<UserAssessment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserAssessment::getAssessmentId, id);
@@ -120,9 +132,11 @@ public class AdminAssessmentServiceImpl implements AdminAssessmentService {
             // 如果有用户完成了问卷，则只做逻辑删除（设置为未激活）
             assessment.setIsActive(0);
             assessmentMapper.updateById(assessment);
+            log.info("问卷已被逻辑删除（设置为未激活）: id={}, title={}", id, assessment.getTitle());
         } else {
             // 如果没有用户完成问卷，则可以物理删除
             assessmentMapper.deleteById(id);
+            log.info("问卷已被物理删除: id={}, title={}", id, assessment.getTitle());
         }
     }
 
